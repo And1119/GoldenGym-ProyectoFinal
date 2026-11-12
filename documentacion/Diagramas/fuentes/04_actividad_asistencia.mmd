@@ -1,0 +1,18 @@
+flowchart TD
+  A(["Inicio: tocar 'Registrar entrada'"]) --> B{"¿Rol del usuario?"}
+  B -- Cliente --> C["Usa su propio IdUsuario"]
+  B -- "Entrenador / Admin" --> B1["Elegir cliente de la lista"] --> C2["Usa IdUsuario elegido"]
+  C --> D["POST /api/asistencias/entrada<br/>con JWT"]
+  C2 --> D
+  D --> E{"¿Token válido?"}
+  E -- No --> E1["401 → borrar sesión<br/>y volver al Login"] --> Z(["Fin"])
+  E -- Sí --> F{"¿Cliente existe y está activo?"}
+  F -- No --> F1["404 / 422 → mostrar mensaje"] --> Z
+  F -- Sí --> G{"¿Tiene membresía vigente hoy?<br/>(Activa y hoy entre inicio y fin)"}
+  G -- No --> G1["422: 'no tiene una membresía vigente'<br/>→ sugerir Adquirir plan"] --> Z
+  G -- Sí --> H{"¿Ya tiene una entrada abierta hoy?"}
+  H -- Sí --> H1["422: 'registra primero la salida'"] --> Z
+  H -- No --> I["INSERT en Asistencias<br/>(FechaEntrada = ahora)"]
+  I --> J["201 Created → mostrar hora de entrada<br/>y refrescar lista"]
+  J --> K["Al terminar: tocar la asistencia →<br/>PUT /api/asistencias/{id}/salida"]
+  K --> L["UPDATE FechaSalida → minutos en el gimnasio"] --> Z

@@ -1,0 +1,90 @@
+erDiagram
+  Roles ||--o{ Usuarios : "tiene"
+  Usuarios ||--o{ Membresias : "adquiere"
+  Planes ||--o{ Membresias : "se vende en"
+  Usuarios ||--o{ Rutinas : "es cliente de"
+  Usuarios ||--o{ Rutinas : "crea (entrenador)"
+  Rutinas ||--|{ RutinaEjercicio : "contiene"
+  Ejercicios ||--o{ RutinaEjercicio : "se usa en"
+  Usuarios ||--o{ Asistencias : "registra"
+  Usuarios |o--o{ Asistencias : "registrado por"
+  Usuarios ||--o{ Progresos : "mide"
+  Usuarios |o--o{ Progresos : "evalúa (entrenador)"
+  Roles {
+    int IdRol PK
+    varchar Nombre UK "Administrador | Entrenador | Cliente"
+    varchar Descripcion
+  }
+  Usuarios {
+    int IdUsuario PK
+    int IdRol FK
+    varchar Nombres
+    varchar Apellidos
+    varchar Correo UK
+    varchar PasswordHash "BCrypt"
+    varchar Telefono
+    varchar Documento UK
+    date FechaNacimiento
+    tinyint Activo
+    datetime FechaRegistro
+  }
+  Planes {
+    int IdPlan PK
+    varchar Nombre UK
+    varchar Descripcion
+    int DuracionDias "CHECK > 0"
+    decimal Precio "CHECK >= 0"
+    tinyint Activo
+  }
+  Membresias {
+    int IdMembresia PK
+    int IdUsuario FK
+    int IdPlan FK
+    date FechaInicio
+    date FechaFin "CHECK >= FechaInicio"
+    decimal PrecioPagado
+    varchar Estado "Activa | Cancelada"
+    datetime FechaRegistro
+  }
+  Ejercicios {
+    int IdEjercicio PK
+    varchar Nombre UK
+    varchar GrupoMuscular
+    varchar Descripcion
+    tinyint Activo
+  }
+  Rutinas {
+    int IdRutina PK
+    varchar Nombre
+    varchar Objetivo
+    varchar Nivel "Principiante | Intermedio | Avanzado"
+    int IdCliente FK
+    int IdEntrenador FK
+    datetime FechaCreacion
+    tinyint Activa
+  }
+  RutinaEjercicio {
+    int IdRutina PK,FK
+    int IdEjercicio PK,FK
+    int Series "1-20"
+    int Repeticiones "1-100"
+    int DescansoSeg "0-600"
+    int Orden
+  }
+  Asistencias {
+    int IdAsistencia PK
+    int IdUsuario FK
+    datetime FechaEntrada
+    datetime FechaSalida "NULL = en el gimnasio"
+    int IdRegistradoPor FK
+  }
+  Progresos {
+    int IdProgreso PK
+    int IdUsuario FK
+    int IdEntrenador FK
+    date Fecha
+    decimal PesoKg "20-400"
+    decimal EstaturaCm
+    decimal GrasaCorporal
+    varchar Observaciones
+  }

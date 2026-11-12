@@ -1,0 +1,24 @@
+flowchart LR
+  L["LoginActivity"] -- "¿Sin cuenta?" --> R["RegistroActivity"]
+  R -- "201 + JWT" --> H
+  L -- "200 + JWT" --> H["HomeActivity"]
+  L -. "⚙ URL servidor" .-> L
+  H --> PF["PerfilActivity"]
+  H --> M["MembresiasActivity"]
+  H --> PL["PlanesActivity"]
+  H --> RU["RutinasActivity"]
+  H --> EJ["EjerciciosActivity"]
+  H --> AS["AsistenciaActivity"]
+  H --> PG["ProgresoActivity"]
+  H -- "solo Admin / Entrenador" --> U["UsuariosActivity"]
+  M --> MF["MembresiaFormActivity<br/>(detalle / nueva / adquirir)"]
+  PL -- "Admin" --> PLF["PlanFormActivity"]
+  PL -- "Cliente: adquirir" --> MF
+  RU --> RD["RutinaDetalleActivity"]
+  RU -- "Personal: nueva" --> RF["RutinaFormActivity"]
+  RD -- "Editar" --> RF
+  EJ -- "Personal" --> EF["EjercicioFormActivity"]
+  PG -- "Personal" --> PGF["ProgresoFormActivity"]
+  U --> UF["UsuarioFormActivity"]
+  PF -- "Cerrar sesión" --> L
+  H -- "Cerrar sesión / 401" --> L

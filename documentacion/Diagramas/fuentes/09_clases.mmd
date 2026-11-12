@@ -1,0 +1,118 @@
+classDiagram
+  direction LR
+  class Rol {
+    +int IdRol
+    +string Nombre
+    +string? Descripcion
+  }
+  class Usuario {
+    +int IdUsuario
+    +int IdRol
+    +string Nombres
+    +string Apellidos
+    +string Correo
+    +string PasswordHash
+    +string? Telefono
+    +string? Documento
+    +DateOnly? FechaNacimiento
+    +bool Activo
+    +DateTime FechaRegistro
+    +NombreCompleto() string
+  }
+  class Plan {
+    +int IdPlan
+    +string Nombre
+    +int DuracionDias
+    +decimal Precio
+    +bool Activo
+  }
+  class Membresia {
+    +int IdMembresia
+    +DateOnly FechaInicio
+    +DateOnly FechaFin
+    +decimal PrecioPagado
+    +string Estado
+    +CalcularFechaFin(inicio, dias)$ DateOnly
+    +EstaVigente(hoy) bool
+    +EstadoCalculado(hoy) string
+    +SeCruzaCon(inicio, fin) bool
+  }
+  class Ejercicio {
+    +int IdEjercicio
+    +string Nombre
+    +string GrupoMuscular
+    +bool Activo
+  }
+  class Rutina {
+    +int IdRutina
+    +string Nombre
+    +string? Objetivo
+    +string Nivel
+    +DateTime FechaCreacion
+    +bool Activa
+  }
+  class RutinaEjercicio {
+    +int Series
+    +int Repeticiones
+    +int DescansoSeg
+    +int Orden
+  }
+  class Asistencia {
+    +int IdAsistencia
+    +DateTime FechaEntrada
+    +DateTime? FechaSalida
+    +MinutosEnGimnasio() int?
+  }
+  class Progreso {
+    +int IdProgreso
+    +DateOnly Fecha
+    +decimal PesoKg
+    +decimal? EstaturaCm
+    +decimal? GrasaCorporal
+    +Imc() decimal?
+  }
+  class MembresiaService {
+    -IMembresiaRepository membresias
+    -IFechaProvider fecha
+    +ListarAsync(actual, filtros) List~MembresiaDto~
+    +CrearAsync(actual, req) MembresiaDto
+    +ActualizarAsync(id, req) MembresiaDto
+    +CancelarAsync(id)
+  }
+  class AsistenciaService {
+    +RegistrarEntradaAsync(actual, req) AsistenciaDto
+    +RegistrarSalidaAsync(actual, id) AsistenciaDto
+  }
+  class AuthService {
+    +RegistrarAsync(req) AuthResponse
+    +LoginAsync(req) AuthResponse
+    +ActualizarPerfilAsync(id, req) UsuarioDto
+  }
+  class IMembresiaRepository {
+    <<interface>>
+    +ListarActivasDeUsuarioAsync(id) List~Membresia~
+    +AgregarAsync(m)
+  }
+  class ITokenService {
+    <<interface>>
+    +GenerarToken(usuario) (string, DateTime)
+  }
+  class IPasswordHasher {
+    <<interface>>
+    +Hash(password) string
+    +Verificar(password, hash) bool
+  }
+  Rol "1" --> "0..*" Usuario : asigna
+  Usuario "1" --> "0..*" Membresia : adquiere
+  Plan "1" --> "0..*" Membresia : define
+  Usuario "1" --> "0..*" Rutina : cliente
+  Usuario "1" --> "0..*" Rutina : entrenador
+  Rutina "1" *-- "1..*" RutinaEjercicio : contiene
+  Ejercicio "1" --> "0..*" RutinaEjercicio
+  Usuario "1" --> "0..*" Asistencia
+  Usuario "1" --> "0..*" Progreso
+  MembresiaService ..> IMembresiaRepository : usa
+  MembresiaService ..> Membresia : reglas
+  AsistenciaService ..> Membresia : valida vigencia
+  AuthService ..> ITokenService
+  AuthService ..> IPasswordHasher

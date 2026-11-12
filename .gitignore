@@ -1,0 +1,17 @@
+# .NET
+bin/
+obj/
+.vs/
+*.user
+TestResults/
+# Android
+.gradle/
+local.properties
+.idea/
+build/
+*.apk
+*.iml
+captures/
+# Sistema
+.DS_Store
+Thumbs.db

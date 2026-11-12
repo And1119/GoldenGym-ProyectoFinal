@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Golden Gym</string>
+    <string name="eslogan">Tu meta es nuestra meta</string>
+
+    <!-- Login / Registro -->
+    <string name="correo">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="confirmar_password">Confirmar contraseña</string>
+    <string name="recordar_correo">Recordar mi correo</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="crear_cuenta">¿No tienes cuenta? Regístrate</string>
+    <string name="registrarme">Crear mi cuenta</string>
+    <string name="registro_titulo">Registro de cliente</string>
+    <string name="nombres">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="telefono">Teléfono (opcional)</string>
+    <string name="documento">Documento (opcional)</string>
+    <string name="fecha_nacimiento">Fecha de nacimiento (opcional)</string>
+    <string name="ayuda_password">Mínimo 8 caracteres, una mayúscula, una minúscula y un número</string>
+    <string name="config_servidor">Configurar servidor</string>
+    <string name="url_servidor">URL de la API</string>
+    <string name="ayuda_url">Emulador: http://10.0.2.2:5080/ · Celular: http://IP-del-PC:5080/</string>
+    <string name="probar_conexion">Probar conexión</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+
+    <!-- Home -->
+    <string name="hola">Hola,</string>
+    <string name="perfil">Perfil</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="modulos">Módulos</string>
+    <string name="membresias">Membresías</string>
+    <string name="planes">Planes</string>
+    <string name="rutinas">Rutinas</string>
+    <string name="ejercicios">Ejercicios</string>
+    <string name="asistencia">Asistencia</string>
+    <string name="progreso">Progreso</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="clientes">Clientes</string>
+    <string name="sin_membresia">No tienes una membresía vigente. Adquiere un plan para entrenar.</string>
+    <string name="confirmar_salir">¿Deseas cerrar sesión? Se borrarán tus credenciales de este dispositivo.</string>
+
+    <!-- Listas -->
+    <string name="buscar">Buscar…</string>
+    <string name="sin_resultados">No hay registros para mostrar.</string>
+    <string name="nuevo">Nuevo</string>
+    <string name="desactivar">Desactivar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+
+    <!-- Formularios -->
+    <string name="nombre">Nombre</string>
+    <string name="descripcion">Descripción (opcional)</string>
+    <string name="duracion_dias">Duración (días)</string>
+    <string name="precio">Precio (COP)</string>
+    <string name="activo">Activo</string>
+    <string name="rol">Rol</string>
+    <string name="cliente">Cliente</string>
+    <string name="plan">Plan</string>
+    <string name="fecha_inicio">Fecha de inicio</string>
+    <string name="grupo_muscular">Grupo muscular</string>
+    <string name="objetivo">Objetivo (opcional)</string>
+    <string name="nivel">Nivel</string>
+    <string name="agregar_ejercicio">Agregar ejercicio</string>
+    <string name="series">Series</string>
+    <string name="repeticiones">Repeticiones</string>
+    <string name="descanso">Descanso (seg)</string>
+    <string name="fecha">Fecha</string>
+    <string name="peso">Peso (kg)</string>
+    <string name="estatura">Estatura (cm, opcional)</string>
+    <string name="grasa">% Grasa corporal (opcional)</string>
+    <string name="observaciones">Observaciones (opcional)</string>
+    <string name="registrar_entrada">Registrar entrada</string>
+    <string name="registrar_salida">Registrar salida</string>
+    <string name="modo_oscuro">Modo oscuro</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="cambiar_password">Cambiar contraseña</string>
+    <string name="password_actual">Contraseña actual</string>
+    <string name="password_nueva">Nueva contraseña</string>
+    <string name="guardado_ok">Guardado correctamente</string>
+    <string name="acceso_denegado">Acceso denegado</string>
+</resources>

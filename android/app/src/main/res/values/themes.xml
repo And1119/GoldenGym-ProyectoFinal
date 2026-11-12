@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GoldenGym" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/dorado</item>
+        <item name="colorOnPrimary">@color/negro</item>
+        <item name="colorPrimaryContainer">#FFF3C4</item>
+        <item name="colorOnPrimaryContainer">@color/negro</item>
+        <item name="colorSecondary">@color/gris_oscuro</item>
+        <item name="colorOnSecondary">@color/blanco</item>
+        <item name="android:colorBackground">@color/gris_claro</item>
+        <item name="colorSurface">@color/blanco</item>
+        <item name="android:statusBarColor">@color/negro</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
+    </style>
+
+    <style name="TituloSeccion">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="BotonModulo" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">88dp</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="iconGravity">top</item>
+        <item name="iconSize">28dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="cornerRadius">14dp</item>
+    </style>
+</resources>

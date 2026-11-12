@@ -1,0 +1,21 @@
+flowchart TD
+  A(["Inicio: abrir la app"]) --> B{"¿Hay token guardado<br/>y no ha expirado?"}
+  B -- Sí --> H["Abrir Home"]
+  B -- No --> C["Mostrar Login"]
+  C --> D["Usuario escribe correo y contraseña"]
+  D --> E{"¿Validación local OK?<br/>(formato correo, campos)"}
+  E -- No --> E1["Mostrar error bajo el campo"] --> D
+  E -- Sí --> F["POST /api/auth/login"]
+  F --> G{"¿Respuesta de la API?"}
+  G -- "Sin conexión / timeout" --> G1["Snackbar: no se pudo conectar<br/>(revisar URL ⚙)"] --> D
+  G -- "401" --> G2["Snackbar: correo o contraseña<br/>incorrectos / cuenta inactiva"] --> D
+  G -- "200 + JWT" --> I["Guardar token cifrado,<br/>rol y nombre"]
+  I --> J{"¿Recordar correo?"}
+  J -- Sí --> J1["Guardar correo en preferencias"] --> H
+  J -- No --> J2["Borrar correo guardado"] --> H
+  H --> K["GET /api/dashboard"]
+  K --> L{"¿Rol?"}
+  L -- Cliente --> L1["Membresía vigente,<br/>rutinas, asistencias, peso"]
+  L -- "Administrador / Entrenador" --> L2["Clientes activos, membresías,<br/>asistencias de hoy + módulo Usuarios"]
+  L1 --> Z(["Fin"])
+  L2 --> Z

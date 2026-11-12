@@ -1,0 +1,25 @@
+flowchart LR
+  subgraph CEL["📱 Cliente móvil — App Android (Kotlin)"]
+    direction TB
+    UI["Activities + layouts XML<br/>(ViewBinding)"]
+    REPO["Repository<br/>AuthRepository / GymRepository"]
+    RET["Retrofit + OkHttp<br/>AuthInterceptor (Bearer JWT)"]
+    PREF["SessionManager<br/>EncryptedSharedPreferences<br/>(token cifrado AES-256)"]
+    UI --> REPO --> RET
+    REPO -.-> PREF
+    RET -.lee token.-> PREF
+  end
+  subgraph SRV["🖥️ Servidor — API REST ASP.NET Core 8 (C#)"]
+    direction TB
+    MW["Middleware de errores<br/>JSON único 400/401/403/404/409/422"]
+    AUTH["JwtBearer + políticas por rol<br/>SoloAdmin · Personal · Autenticado"]
+    CTRL["Controllers<br/>(DTOs + DataAnnotations)"]
+    SVC["Servicios de aplicación<br/>(reglas de negocio)"]
+    INF["Infrastructure<br/>Repositorios EF Core · BCrypt · JwtTokenService"]
+    MW --> AUTH --> CTRL --> SVC --> INF
+  end
+  DB[("🗄️ MySQL / MariaDB (XAMPP)<br/>goldengym_db · 9 tablas<br/>PK, FK, UNIQUE, CHECK")]
+  SW["Swagger UI<br/>/swagger"]
+  RET == "HTTP/JSON · REST<br/>Authorization: Bearer &lt;JWT&gt;" ==> MW
+  INF == "EF Core (Pomelo)<br/>TCP 3306" ==> DB
+  SW -. pruebas manuales .-> MW

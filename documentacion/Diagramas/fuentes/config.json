@@ -1,0 +1,3 @@
+{ "theme": "base", "themeVariables": { "primaryColor": "#FFF6D6", "primaryBorderColor": "#B8941F", "primaryTextColor": "#1A1A1A",
+  "lineColor": "#555555", "secondaryColor": "#F2F2F2", "tertiaryColor": "#FFFFFF", "fontFamily": "Arial", "fontSize": "15px" },
+  "flowchart": { "curve": "basis", "htmlLabels": true }, "sequence": { "mirrorActors": false, "showSequenceNumbers": true } }

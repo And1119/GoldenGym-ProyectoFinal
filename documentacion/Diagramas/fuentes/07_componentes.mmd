@@ -1,0 +1,53 @@
+flowchart TB
+  subgraph AND["App Android · com.goldengym.app"]
+    direction LR
+    subgraph UIL["Capa UI (presentación)"]
+      ACT["activities/<br/>Login, Registro, Home, Perfil,<br/>Usuarios, Planes, Membresías,<br/>Ejercicios, Rutinas, Asistencia, Progreso<br/>+ formularios"]
+      ADP["adapters/<br/>ItemAdapter, IndicadorAdapter"]
+      LAY["res/layout/ (XML)"]
+    end
+    subgraph DATA["Capa de datos"]
+      RP["repository/<br/>BaseRepository · Resultado"]
+      API["api/<br/>GymApi (Retrofit) · ApiClient"]
+      PRF["preferences/<br/>SessionManager · PreferenciasUI"]
+      MOD["models/ (DTO)"]
+    end
+    UT["utils/<br/>Validador · Formatos"]
+    ACT --> ADP
+    ACT --> RP
+    ACT --> UT
+    RP --> API
+    RP --> PRF
+    API --> MOD
+  end
+  subgraph NET["Backend .NET 8 · arquitectura por capas (hexagonal)"]
+    direction LR
+    subgraph P1["GoldenGym.Api (presentación)"]
+      CT["Controllers"]
+      MWE["ErrorHandlingMiddleware"]
+      POL["Políticas JWT por rol"]
+    end
+    subgraph P2["GoldenGym.Application (casos de uso)"]
+      SV["Services<br/>Auth, Usuario, Plan, Membresía,<br/>Ejercicio, Rutina, Asistencia,<br/>Progreso, Dashboard"]
+      PT["Interfaces (puertos)<br/>IRepositorios · IPasswordHasher ·<br/>ITokenService · IUnitOfWork"]
+      DTO["DTOs + validaciones"]
+    end
+    subgraph P3["GoldenGym.Domain (dominio)"]
+      ENT["Entidades + reglas<br/>Membresia.EstaVigente,<br/>SeCruzaCon, Progreso.Imc"]
+      EXC["Excepciones de dominio"]
+    end
+    subgraph P4["GoldenGym.Infrastructure (adaptadores)"]
+      EF["GymDbContext + Configuraciones"]
+      RE["Repositorios EF Core"]
+      SEC["BCryptPasswordHasher ·<br/>JwtTokenService"]
+    end
+    CT --> SV
+    SV --> PT
+    SV --> ENT
+    RE -. implementa .-> PT
+    SEC -. implementa .-> PT
+    RE --> EF
+  end
+  BDD[("Persistencia<br/>MySQL / MariaDB")]
+  API == "REST / JSON" ==> CT
+  EF ==> BDD

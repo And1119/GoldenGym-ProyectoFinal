@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GoldenGym" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/dorado</item>
+        <item name="colorOnPrimary">@color/negro</item>
+        <item name="colorPrimaryContainer">#3A3010</item>
+        <item name="colorOnPrimaryContainer">@color/dorado_claro</item>
+        <item name="colorSecondary">@color/dorado_claro</item>
+        <item name="colorOnSecondary">@color/negro</item>
+        <item name="android:colorBackground">@color/negro</item>
+        <item name="colorSurface">@color/gris_oscuro</item>
+        <item name="android:statusBarColor">@color/negro</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
+    </style>
+</resources>

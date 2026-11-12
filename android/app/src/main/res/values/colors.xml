@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores de la página web de Golden Gym Ibagué -->
+    <color name="dorado">#D4AF37</color>
+    <color name="dorado_claro">#FFD700</color>
+    <color name="dorado_oscuro">#9C7C1C</color>
+    <color name="negro">#000000</color>
+    <color name="gris_oscuro">#1A1A1A</color>
+    <color name="gris_claro">#F5F5F5</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="texto_oscuro">#333333</color>
+    <color name="verde">#2E7D32</color>
+    <color name="rojo">#C62828</color>
+    <color name="naranja">#EF6C00</color>
+    <color name="azul">#1565C0</color>
+    <color name="gris">#757575</color>
+</resources>

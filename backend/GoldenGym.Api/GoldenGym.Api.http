@@ -1,0 +1,37 @@
+### Pruebas manuales de la API (Visual Studio / VS Code REST Client)
+@host = http://localhost:5080
+
+### 1. Login administrador
+# @name loginAdmin
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "correo": "admin@goldengym.com", "password": "Admin123*" }
+
+### 2. Login cliente
+# @name loginCliente
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "correo": "andres.cliente@goldengym.com", "password": "Cliente123*" }
+
+### 3. Sin token -> 401
+GET {{host}}/api/usuarios
+
+### 4. Cliente intentando listar usuarios -> 403
+GET {{host}}/api/usuarios
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 5. Administrador listando usuarios -> 200
+GET {{host}}/api/usuarios?rol=Cliente&buscar=and
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### 6. Dashboard del cliente
+GET {{host}}/api/dashboard
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 7. Registro con correo duplicado -> 409
+POST {{host}}/api/auth/registro
+Content-Type: application/json
+
+{ "nombres": "Prueba", "apellidos": "Duplicado", "correo": "admin@goldengym.com", "password": "Clave1234" }

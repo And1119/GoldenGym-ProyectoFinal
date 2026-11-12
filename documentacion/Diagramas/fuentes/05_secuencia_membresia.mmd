@@ -1,0 +1,46 @@
+sequenceDiagram
+  autonumber
+  actor C as Cliente
+  participant A as MembresiaFormActivity
+  participant R as GymRepository
+  participant RF as Retrofit + AuthInterceptor
+  participant API as MembresiasController
+  participant S as MembresiaService
+  participant DB as MembresiaRepository / EF Core
+  participant BD as MySQL (goldengym_db)
+  C->>A: Elige plan y fecha de inicio, toca "Confirmar compra"
+  A->>A: Validador.fechaNoPasada(fecha)
+  alt Fecha inválida
+    A-->>C: Error bajo el campo (no se llama a la API)
+  else Fecha válida
+    A->>R: crearMembresia(MembresiaRequest)
+    R->>RF: POST /api/membresias (JSON)
+    RF->>API: Authorization: Bearer JWT
+    alt Token ausente / vencido / alterado
+      API-->>RF: 401 {mensaje}
+      RF-->>R: Resultado.Error(401)
+      R-->>A: sesión expirada
+      A-->>C: Borra sesión y abre Login
+    else Token válido (rol Cliente)
+      API->>S: CrearAsync(usuarioActual, req)
+      S->>DB: ObtenerPorId(plan), ListarActivasDeUsuario(id)
+      DB->>BD: SELECT Planes / Membresias
+      BD-->>DB: filas
+      alt Plan inactivo o fechas cruzadas
+        S-->>API: BusinessRuleException
+        API-->>RF: 422 {mensaje}
+        RF-->>A: Resultado.Error(422)
+        A-->>C: Snackbar con el motivo
+      else Reglas OK
+        S->>DB: Agregar(membresía) + GuardarCambios
+        DB->>BD: INSERT INTO Membresias
+        BD-->>DB: IdMembresia
+        S-->>API: MembresiaDto (Estado = Vigente/Pendiente)
+        API-->>RF: 201 Created + JSON
+        RF-->>R: Response<Membresia>
+        R-->>A: Resultado.Exito
+        A-->>C: "Membresía registrada" y vuelve a la lista
+      end
+    end
+  end
+  Note over RF,API: Sin conexión o timeout → IOException capturada en BaseRepository → mensaje "No se pudo conectar"
