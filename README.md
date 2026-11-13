@@ -57,13 +57,3 @@ Los detalles están en `documentacion/ManualUsuario/Manual_de_instalacion.md`.
 | Backend | C# .NET 8, ASP.NET Core Web API, Swagger/OpenAPI, DTOs, inyección de dependencias, JWT Bearer, BCrypt, arquitectura por capas (hexagonal) |
 | Persistencia | EF Core 8 + Pomelo MySQL, MySQL/MariaDB (XAMPP) |
 | Pruebas | xUnit, WebApplicationFactory, EF InMemory, JUnit |
-
-## Guion de sustentación (aprox. 10 minutos)
-
-1. **Login con dos roles:** entrar como cliente (Andrés) y luego como administrador. Mostrar que el Home y los módulos cambian.
-2. **Alta y consulta desde Android:** con el entrenador Carlos, crear el ejercicio “Remo con barra” y buscarlo con el filtro “Espalda”. Mostrar la fila nueva en phpMyAdmin (persistencia).
-3. **Edición:** con el administrador, cambiar el precio del Plan Semanal y verlo en la tabla `Planes`.
-4. **Acceso denegado (403):** con la entrenadora Laura, editar la rutina “Fuerza tren superior” (de Carlos). Aparece el diálogo “Acceso denegado”. En Swagger, mostrar `GET /api/usuarios` con el token de un cliente → 403.
-5. **Manejo de errores:** comprar un plan con fechas cruzadas (422); registrar la entrada de Miguel, que tiene la membresía vencida (422); apagar la API y tocar Ingresar (sin conexión).
-6. **Flujo de secuencia completo:** explicar `05_secuencia_membresia.png`: MembresiaFormActivity → GymRepository → Retrofit/AuthInterceptor → MembresiasController → MembresiaService → Repositorio/EF Core → MySQL, y la respuesta de vuelta.
-7. **Pruebas:** ejecutar `dotnet test` (35 pruebas).
